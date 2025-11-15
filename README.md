@@ -47,3 +47,17 @@ OnInit() {}
 OnChange() {}
 OnDestroy() {}
 ```
+
+````
+Providers component level
+providers: [TimerService]
+As tool used only for the component
+Example: When using more than one, each one has a start time and actions such as play, pause, and restart.
+
+
+Module level
+providers: [TimerService]
+Comumnicate several components
+
+Example: When using more than one timer, they all share the initial time and actions such as play, pause, and restart.
+```

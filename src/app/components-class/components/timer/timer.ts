@@ -3,6 +3,7 @@ import { ProgressBar } from '../progress-bar/progress-bar';
 import { Display } from '../display/display';
 import { NgIf } from '@angular/common';
 import { TimerService } from '../../services/timer';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-timer',
@@ -16,13 +17,20 @@ export class Timer implements OnInit, OnDestroy {
   @Output() onComplete = new EventEmitter<void>();
   @Input() init: number = 20;
 
+  private coundtdownEndSubscription: Subscription | null = null;
+
   constructor(public timerService: TimerService) {}
 
   ngOnInit(): void {
     this.timerService.restartCountdown(this.init);
+
+    this.coundtdownEndSubscription = this.timerService.countdownEnd$.subscribe(() => {
+      this.onComplete.emit();
+    });
   }
 
   ngOnDestroy(): void {
     this.timerService.destroy();
+    this.coundtdownEndSubscription?.unsubscribe();
   }
 }
