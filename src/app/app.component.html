@@ -8,7 +8,13 @@
     [hidden]="!isAddTimerVisible"
     (onCancel)="hideAddTimer()"
     (onSubmit)="hideAddTimer()"
-  ></app-alert-view>
+  >
+    <label>Set the number of seconds for your timer</label>
+    <input
+      [(ngModel)]="time"
+      type="number"
+    >
+  </app-alert-view>
 </section>
 <hr>
 <section>

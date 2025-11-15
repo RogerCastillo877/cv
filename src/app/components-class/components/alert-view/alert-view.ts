@@ -9,9 +9,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class AlertView implements OnInit{
 
   @Output() onCancel = new EventEmitter<void>();
-  @Output() onSubmit = new EventEmitter<void>();
-
-  public time: number = 0;
+  @Output() onSubmit = new EventEmitter<number>();
 
   constructor() {}
 

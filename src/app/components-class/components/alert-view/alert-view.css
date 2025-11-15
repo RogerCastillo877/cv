@@ -1,3 +1,26 @@
-:host {
-  display: block;
+:host{
+    position: fixed;
+    z-index: 100;
 }
+
+.background{
+    background: black;
+    opacity: 0.5;
+    width: 100vw;
+    height: 100vh;
+}
+
+.card{
+    position: absolute;
+    z-index: 100;
+    background: white;
+    width: 80%;
+    padding: 20px;
+    margin-left: calc(10% - 20px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

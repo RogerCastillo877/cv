@@ -14,6 +14,7 @@ import { AlertView } from './components-class/components/alert-view/alert-view';
 export class AppComponent {
   public isAddTimerVisible: boolean = false;
   // public isAddTimerVisibleS = signal(false);
+  public time : number = 0;
 
   public showAddTimer() {
     this.isAddTimerVisible = true;

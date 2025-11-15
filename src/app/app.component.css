@@ -1,17 +1,35 @@
 
-button {
-  width: 100%;
-  height: 40px;
-}
+:host{
+    &>div{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
 
-.initInput {
-  display: flex;
-}
+        h1{
+            font-family: sans-serif;
+            width: 100%;
+            text-align: center;
+        }
 
-.initInput input {
-  margin-left: 20px;
-  height: 40px;
-  font-size: 20px;
-  flex: 1;
-  min-width: 50px;
+        app-timer{
+            flex-grow: 1;
+        }
+    }
+
+    .add{
+        position: fixed;
+        color: white;
+        bottom: 20px;
+        right: 20px;
+        width: 80px;
+        height: 80px;
+        border-radius: 40px;
+        border: none;
+        font-size: 30px;
+        background-color: #DDD;
+
+        &:active{
+            background-color:#AAA;
+        }
+    }
 }
