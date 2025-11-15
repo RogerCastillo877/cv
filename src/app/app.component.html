@@ -3,6 +3,12 @@
     <h1>Timers</h1>
     <app-timer [init]="65"></app-timer>
   </div>
+  <button class="add" (click)="showAddTimer()">+</button>
+  <app-alert-view
+    [hidden]="!isAddTimerVisible"
+    (onCancel)="hideAddTimer()"
+    (onSubmit)="hideAddTimer()"
+  ></app-alert-view>
 </section>
 <hr>
 <section>
@@ -10,27 +16,4 @@
     <h1>Timers Signals</h1>
     <app-timer-s [init]="15"></app-timer-s>
   </div>
-  <!-- <progress-bar [progress]="counterProgress"></progress-bar>
-  <countdown #countdown
-    [init]="totalCountdown"
-    (onDecrese)="updateProgress($event)"
-    (onComplete)="CountdownFinished()"
-  ></countdown>
-  <div class="initInput">
-    <label for="totalCountdown">Init on: </label>
-    <input
-      id="totalCountdown"
-      type="text"
-      [(ngModel)]="totalCountdown">
-  </div>
-  <button
-    (click)="countdown.startCountdown() ; counterProgress=0;"
-  >Restart</button>
-  <hr>
-  <progress-bar-s [progress]="counterProgressS()"></progress-bar-s>
-  <countdown-s #countdowns
-    [init]="totalCountdownS()"
-    (decrese)="updateProgressS($event)"
-    (complete)="CountdownFinished()"
-  ></countdown-s> -->
 </section>

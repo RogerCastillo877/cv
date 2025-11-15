@@ -3,29 +3,26 @@ import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Timer } from './components-class/components/timer/timer';
 import { TimerS } from './components-class/components/timer-s/timer-s';
+import { AlertView } from './components-class/components/alert-view/alert-view';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, Timer, TimerS],
+  imports: [FormsModule, Timer, TimerS, AlertView],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  public isAddTimerVisible: boolean = false;
+  // public isAddTimerVisibleS = signal(false);
 
-  counterProgress: number = 0;
-  totalCountdown: number = 10;
-
-  counterProgressS = signal(0);
-  totalCountdownS = signal(20);
-
-  updateProgress($event: number) {
-    this.counterProgress = (this.totalCountdown - $event) / this.totalCountdown * 100;
-    console.log("Progress updated to", typeof $event);
+  public showAddTimer() {
+    this.isAddTimerVisible = true;
+    // this.isAddTimerVisibleS.set(true);
   }
 
-  updateProgressS($event: number) {
-    this.counterProgressS.set((this.totalCountdownS() - $event) / this.totalCountdownS() * 100);
-    console.log("Progress updated to",typeof $event);
+  public hideAddTimer() {
+    this.isAddTimerVisible = false;
+    // this.isAddTimerVisibleS.set(false);
   }
 
   CountdownFinished() {
