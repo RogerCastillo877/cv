@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Countdown } from '../components/countdown/countdown';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +8,12 @@ import { Subject } from 'rxjs';
 export class TimerService {
 
   private countdownTimerRef: any = null;
-  public countdown: number = 0;
   public paused: boolean = false;
   private init: number = 0;
   private CountdownEndSource = new Subject<void>();
+  private countdownSource = new BehaviorSubject<number>(0);
   public countdownEnd$ = this.CountdownEndSource.asObservable();
+  public countdown$ = this.countdownSource.asObservable();
 
   constructor() { }
 
@@ -27,7 +28,7 @@ export class TimerService {
     if (this.init && this.init > 0) {
       this.paused = true;
       this.clearTimeout();
-      this.countdown = this.init;
+      this.countdownSource.next(this.init);
     }
   }
 
@@ -42,13 +43,13 @@ export class TimerService {
 
   private doCountdown() {
     this.countdownTimerRef = setTimeout(() => {
-      this.countdown = this.countdown - 1;
+      this.countdownSource.next(this.countdownSource.getValue() - 1);
       this.processCountdown();
     }, 1000);
   }
 
   private processCountdown() {
-    if (this.countdown == 0) {
+    if (this.countdownSource.getValue() == 0) {
       this.CountdownEndSource.next();
     } else {
       this.doCountdown();

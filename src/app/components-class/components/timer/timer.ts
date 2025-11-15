@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ProgressBar } from '../progress-bar/progress-bar';
 import { Display } from '../display/display';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { TimerService } from '../../services/timer';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-timer',
-  imports: [ProgressBar, Display, NgIf],
+  imports: [ProgressBar, Display, NgIf, AsyncPipe],
   templateUrl: './timer.html',
   styleUrl: './timer.css',
   providers: [TimerService],
