@@ -1,0 +1,9 @@
+<div class="timer">
+  <progress-bar-s [progress]="(init()-countdown)/init()*100"></progress-bar-s>
+  <app-display-s [time]="countdown"></app-display-s>
+  <div class="buttons">
+    <button *ngIf="paused" (click)="toogleCountdown()">Play</button>
+    <button *ngIf="!paused" (click)="toogleCountdown()">Pause</button>
+    <button (click)="restartCountdown()">Restart</button>
+  </div>
+</div>
