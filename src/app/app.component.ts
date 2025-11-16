@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, signal, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Timer } from './components-class/components/timer/timer';
@@ -17,22 +17,25 @@ import { SimpleAlertView } from "./components-class/components/simple-alert-view
 })
 export class AppComponent implements AfterViewInit {
   public isAddTimerVisible: boolean = false;
-  public isEndTimerAlertVisible: boolean = false;
   // public isAddTimerVisibleS = signal(false);
   public time : number = 0;
   public timers: number[] = [];
 
-  @ViewChild(SimpleAlertView) alert!: SimpleAlertView;
+  @ViewChildren(SimpleAlertView) alerts!: QueryList<SimpleAlertView>;
 
-  constructor() {
+  constructor(private cdRef: ChangeDetectorRef) {
     this.timers = [10, 20, 30];
   }
 
   ngAfterViewInit(): void {
-    console.log(this.alert);
-    this.alert.show();
-    this.alert.title = "Welcome!";
-    this.alert.message = "This is a simple alert view.";
+    this.alerts.forEach((alert) => {
+      if (!alert.title) {
+        alert.title = "Default Title";
+        alert.message = "Default Message";
+      }
+      alert.show();
+    });
+    this.cdRef.detectChanges();
   }
 
   public showAddTimer() {
@@ -50,11 +53,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   public showEndTimerAlert() {
-    this.isEndTimerAlertVisible = true;
-  }
-
-  public hideEndTimerAlert() {
-    this.isEndTimerAlertVisible = false;
+    this.alerts.first.show();
   }
 
   public submitAddTimer() {
