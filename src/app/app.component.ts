@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { Timer } from './components-class/components/timer/timer';
 import { TimerS } from './components-class/components/timer-s/timer-s';
 import { AlertView } from './components-class/components/alert-view/alert-view';
-import { NgFor } from '@angular/common';
+import { NgFor, NgTemplateOutlet } from '@angular/common';
 import { TabsComponent } from "./components-class/components/tabs/tabs";
 import { TabComponent } from './components-class/components/tab/tab';
 import { SimpleAlertView } from "./components-class/components/simple-alert-view/simple-alert-view";
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, Timer, TimerS, AlertView, NgFor, TabComponent, TabsComponent, SimpleAlertView],
+  imports: [FormsModule, Timer, TimerS, AlertView, NgFor, TabComponent, TabsComponent, SimpleAlertView, NgTemplateOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

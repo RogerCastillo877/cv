@@ -33,6 +33,12 @@
     <button (click)="submitAddTimer()">Ok</button>
   </app-alert-view>
 
-  <app-simple-alert-view title="Timer Ended" message="Your countdown has finished"></app-simple-alert-view>
-  <app-simple-alert-view></app-simple-alert-view>
+  <ng-template #timeEndTemplate let-message let-title="title">
+    <app-simple-alert-view [title]="title" [message]="message"></app-simple-alert-view>
+  </ng-template>
+
+  <ng-container [ngTemplateOutlet]="timeEndTemplate"
+    [ngTemplateOutletContext]="{ title: 'Timer Ended', $implicit: 'Your timer has completed!' }"
+  ></ng-container>
+
 </section>
