@@ -1,9 +1,11 @@
 <section>
   <div>
     <h1>Timers</h1>
-    <app-timer [init]="65"></app-timer>
+    <app-timer *ngFor="let timer of timers" [init]="timer" (onComplete)="showEndTimerAlert()"></app-timer>
   </div>
+
   <button class="add" (click)="showAddTimer()">+</button>
+
   <app-alert-view
     [hidden]="!isAddTimerVisible"
   >
@@ -14,7 +16,15 @@
       type="number"
     >
     <button (click)="hideAddTimer()" class="cancel-button">Cancel</button>
-    <button >Ok</button>
+    <button (click)="submitAddTimer()">Ok</button>
+  </app-alert-view>
+
+  <app-alert-view
+    [hidden]="!isEndTimerAlertVisible"
+  >
+    <div header>Timer ended</div>
+    <div>Your countdown has finished</div>
+    <button (click)="hideEndTimerAlert()">Ok</button>
   </app-alert-view>
 </section>
 <hr>
