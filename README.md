@@ -103,3 +103,13 @@ In this case, select all the HTML elements of the component with that tag.
 <button >Ok</button>
 <ng-content select="button"></ng-content>
 ```
+
+```
+Injection of the parent component
+Inject parent in a child in constructor
+constructor(public tabs: TabsComponent) {}
+And use parent method to add children
+ngOnInit() {
+    this.tabs.addTab(this);
+}
+```

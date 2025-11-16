@@ -1,10 +1,23 @@
 <section>
   <div>
-    <h1>Timers</h1>
-    <app-timer *ngFor="let timer of timers" [init]="timer" (onComplete)="showEndTimerAlert()"></app-timer>
+    <app-tabs>
+      <app-tab title="Timers">
+        <app-timer *ngFor="let timer of timers" [init]="timer" (onComplete)="showEndTimerAlert()"></app-timer>
+        <button class="add" (click)="showAddTimer()">+</button>
+      </app-tab>
+      <app-tab title="Timers Signals">
+        <section>
+          <div>
+            <h1>Timers Signals</h1>
+            <app-timer-s [init]="15"></app-timer-s>
+          </div>
+        </section>
+      </app-tab>
+      <app-tab title="Crono"></app-tab>
+      <app-tab title="Alarm"></app-tab>
+    </app-tabs>
   </div>
 
-  <button class="add" (click)="showAddTimer()">+</button>
 
   <app-alert-view
     [hidden]="!isAddTimerVisible"
@@ -26,11 +39,4 @@
     <div>Your countdown has finished</div>
     <button (click)="hideEndTimerAlert()">Ok</button>
   </app-alert-view>
-</section>
-<hr>
-<section>
-  <div>
-    <h1>Timers Signals</h1>
-    <app-timer-s [init]="15"></app-timer-s>
-  </div>
 </section>
