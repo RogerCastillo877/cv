@@ -89,3 +89,17 @@ encapsulation: ViewEncapsulation.ShadowDom
 ***_nghost / _ngcontent***
 Angular uses the browser's built-in Shadow DOM API to enclose the component's view inside a ShadowRoot, used as the component's host element, and apply the provided styles in an isolated manner.
 ```
+
+```
+ng-content
+<ng-content></ng-content>
+
+Content slots
+In this case, use a property of the HTML element, in this example the heading.
+<div header>Add Timer</div>
+<ng-content select="[header]"></ng-content>
+
+In this case, select all the HTML elements of the component with that tag.
+<button >Ok</button>
+<ng-content select="button"></ng-content>
+```
