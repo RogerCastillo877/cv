@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Timer } from './components-class/components/timer/timer';
@@ -22,12 +22,16 @@ export class AppComponent implements AfterViewInit {
   public timers: number[] = [];
 
   @ViewChildren(SimpleAlertView) alerts!: QueryList<SimpleAlertView>;
+  @ViewChild("timeInput") timeInput?: ElementRef;
 
   constructor(private cdRef: ChangeDetectorRef) {
     this.timers = [10, 20, 30];
   }
 
   ngAfterViewInit(): void {
+    console.log(this.timeInput);
+    this.timeInput?.nativeElement.setAttribute("placeholder", "Enter seconds");
+    this.timeInput?.nativeElement.classList.add("time-in");
     this.alerts.forEach((alert) => {
       if (!alert.title) {
         alert.title = "Default Title";
@@ -40,6 +44,9 @@ export class AppComponent implements AfterViewInit {
 
   public showAddTimer() {
     this.isAddTimerVisible = true;
+    setTimeout(() => {
+      this.timeInput?.nativeElement.focus();
+    });
     // this.isAddTimerVisibleS.set(true);
   }
 

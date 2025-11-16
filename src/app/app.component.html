@@ -27,6 +27,7 @@
     <input
       [(ngModel)]="time"
       type="number"
+      #timeInput
     >
     <button (click)="hideAddTimer()" class="cancel-button">Cancel</button>
     <button (click)="submitAddTimer()">Ok</button>
