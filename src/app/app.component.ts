@@ -31,7 +31,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.timeInput);
     this.renderer.setAttribute(this.timeInput?.nativeElement, "placeholder", "Enter seconds");
     this.renderer.addClass(this.timeInput?.nativeElement, "time-in");
 
@@ -39,6 +38,9 @@ export class AppComponent implements AfterViewInit {
     if (this.simpleAlert) {
       this.simpleAlert.instance.title = "Dynamic Alert";
       this.simpleAlert.instance.message = "This alert was created dynamically using ViewContainerRef.";
+      this.simpleAlert.instance.onDismiss.subscribe(() => {
+        console.log('Dismmis');
+      });
     }
   }
 

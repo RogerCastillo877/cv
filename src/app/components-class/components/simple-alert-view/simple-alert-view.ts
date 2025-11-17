@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-simple-alert-view',
@@ -11,6 +11,7 @@ export class SimpleAlertView implements OnInit {
 
   constructor() { }
 
+  @Output() onDismiss: EventEmitter<void> = new EventEmitter<void>();
   @Input() message?:string;
   @Input() title?:string;
   public visible:boolean = false;
@@ -20,6 +21,7 @@ export class SimpleAlertView implements OnInit {
 
   public dismiss(){
     this.visible = false;
+    this.onDismiss.emit();
   }
 
   public show(){
