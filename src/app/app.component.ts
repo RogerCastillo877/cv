@@ -8,11 +8,13 @@ import { NgFor } from '@angular/common';
 import { TabsComponent } from "./components-class/components/tabs/tabs";
 import { TabComponent } from './components-class/components/tab/tab';
 import { SimpleAlertView } from './components-class/components/simple-alert-view/simple-alert-view';
+import { PokeBall } from "./draw-class/ui/poke-ball/poke-ball";
+import { Kirby } from "./draw-class/ui/kirby/kirby";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, Timer, TimerS, AlertView, NgFor, TabComponent, TabsComponent],
+  imports: [FormsModule, Timer, TimerS, AlertView, NgFor, TabComponent, TabsComponent, PokeBall, Kirby],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

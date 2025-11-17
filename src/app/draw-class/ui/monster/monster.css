@@ -1,0 +1,21 @@
+:host {
+  .layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+    height: 100vh;
+  }
+
+  .layout__container {
+    position: relative;
+    width: 900px;
+    height: 600px;
+    overflow: hidden;
+    border: 10px solid blue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
