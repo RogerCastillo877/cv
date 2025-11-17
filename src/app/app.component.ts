@@ -1,31 +1,33 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Timer } from './components-class/components/timer/timer';
 import { TimerS } from './components-class/components/timer-s/timer-s';
 import { AlertView } from './components-class/components/alert-view/alert-view';
-import { NgFor, NgTemplateOutlet } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { TabsComponent } from "./components-class/components/tabs/tabs";
 import { TabComponent } from './components-class/components/tab/tab';
-import { SimpleAlertView } from "./components-class/components/simple-alert-view/simple-alert-view";
+import { SimpleAlertView } from './components-class/components/simple-alert-view/simple-alert-view';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule, Timer, TimerS, AlertView, NgFor, TabComponent, TabsComponent, SimpleAlertView, NgTemplateOutlet],
+  standalone: true,
+  imports: [FormsModule, Timer, TimerS, AlertView, NgFor, TabComponent, TabsComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
   public isAddTimerVisible: boolean = false;
   // public isAddTimerVisibleS = signal(false);
   public time : number = 0;
   public timers: number[] = [];
+  private simpleAlert: ComponentRef<SimpleAlertView> | undefined;
 
-  @ViewChildren(SimpleAlertView) alerts!: QueryList<SimpleAlertView>;
   @ViewChild("timeInput") timeInput?: ElementRef;
+  @ViewChild("alert", {read: ViewContainerRef}) alertContainer?: ViewContainerRef;
 
-  constructor(private cdRef: ChangeDetectorRef, private renderer: Renderer2) {
-    this.timers = [10, 20, 30];
+  constructor(private renderer: Renderer2) {
+    this.timers = [2, 20, 30];
   }
 
   ngAfterViewInit(): void {
@@ -33,14 +35,11 @@ export class AppComponent implements AfterViewInit {
     this.renderer.setAttribute(this.timeInput?.nativeElement, "placeholder", "Enter seconds");
     this.renderer.addClass(this.timeInput?.nativeElement, "time-in");
 
-    this.alerts.forEach((alert) => {
-      if (!alert.title) {
-        alert.title = "Default Title";
-        alert.message = "Default Message";
-      }
-      alert.show();
-    });
-    this.cdRef.detectChanges();
+    this.simpleAlert = this.alertContainer?.createComponent(SimpleAlertView);
+    if (this.simpleAlert) {
+      this.simpleAlert.instance.title = "Dynamic Alert";
+      this.simpleAlert.instance.message = "This alert was created dynamically using ViewContainerRef.";
+    }
   }
 
   public showAddTimer() {
@@ -61,8 +60,9 @@ export class AppComponent implements AfterViewInit {
   }
 
   public showEndTimerAlert() {
-    this.alerts.first.show();
+    this.simpleAlert?.instance?.show();
   }
+
 
   public submitAddTimer() {
     this.timers.push(this.time);
