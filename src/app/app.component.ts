@@ -33,15 +33,6 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.renderer.setAttribute(this.timeInput?.nativeElement, "placeholder", "Enter seconds");
     this.renderer.addClass(this.timeInput?.nativeElement, "time-in");
-
-    this.simpleAlert = this.alertContainer?.createComponent(SimpleAlertView);
-    if (this.simpleAlert) {
-      this.simpleAlert.instance.title = "Dynamic Alert";
-      this.simpleAlert.instance.message = "This alert was created dynamically using ViewContainerRef.";
-      this.simpleAlert.instance.onDismiss.subscribe(() => {
-        console.log('Dismmis');
-      });
-    }
   }
 
   public showAddTimer() {
@@ -62,9 +53,16 @@ export class AppComponent implements AfterViewInit {
   }
 
   public showEndTimerAlert() {
+    this.simpleAlert = this.alertContainer?.createComponent(SimpleAlertView);
+    if (this.simpleAlert) {
+      this.simpleAlert.instance.title = "Dynamic Alert";
+      this.simpleAlert.instance.message = "This alert was created dynamically using ViewContainerRef.";
+      this.simpleAlert.instance.onDismiss.subscribe(() => {
+        this.simpleAlert?.destroy();
+      });
+    }
     this.simpleAlert?.instance?.show();
   }
-
 
   public submitAddTimer() {
     this.timers.push(this.time);
